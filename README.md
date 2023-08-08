@@ -51,6 +51,12 @@ git clone https://github.com/SEU_USUARIO/Xperf.git
 - `database_functions.py`: Funções relacionadas à interação com o banco de dados.
 - `README.md`: Este arquivo de documentação.
 
+## Visualização da Dashboard
+
+Para visualizar os dados coletados pelo Xperf, você pode utilizar o Grafana, uma ferramenta poderosa para criação de dashboards e visualização de dados. Na pasta `dashboard`, você encontrará um arquivo de configuração `xperf_dashboard.json`. Importe esse arquivo no Grafana para criar uma dashboard pré-configurada com os resultados dos testes de ping e velocidade.
+
+![Exemplo de Dashboard Xperf](dashboard.png)
+
 ## Contribuição
 
 Contribuições são bem-vindas! Se você deseja adicionar recursos, corrigir problemas ou melhorar a documentação, fique à vontade para fazer um fork deste repositório, implementar suas melhorias e enviar um pull request. Juntos, podemos aprimorar o Xperf e torná-lo ainda mais poderoso.
