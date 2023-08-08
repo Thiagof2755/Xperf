@@ -1,0 +1,36 @@
+-- Criação do banco de dados
+CREATE DATABASE xperf;
+
+USE xperf;
+
+CREATE TABLE `equipamento` (
+  `ID_EQUIP` int(11) NOT NULL AUTO_INCREMENT,
+  `marca` varchar(255) DEFAULT NULL,
+  `modelo` varchar(255) DEFAULT NULL,
+  `mac` varchar(17) DEFAULT NULL,
+  PRIMARY KEY (`ID_EQUIP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `ping` (
+  `ID_Ping` int(11) NOT NULL AUTO_INCREMENT,
+  `equipamento` int(11) DEFAULT NULL,
+  `ms1` int(11) DEFAULT NULL,
+  `ms2` int(11) DEFAULT NULL,
+  `ms3` int(11) DEFAULT NULL,
+  `data_hora_ping` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID_Ping`),
+  KEY `equipamento` (`equipamento`),
+  CONSTRAINT `ping_ibfk_1` FOREIGN KEY (`equipamento`) REFERENCES `equipamento` (`ID_EQUIP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE `speedtest` (
+  `ID_Speed` int(11) NOT NULL AUTO_INCREMENT,
+  `equipamento` int(11) DEFAULT NULL,
+  `data_hora_speedtest` datetime DEFAULT NULL,
+  `download_speed` float DEFAULT NULL,
+  `upload_speed` float DEFAULT NULL,
+  PRIMARY KEY (`ID_Speed`),
+  KEY `equipamento` (`equipamento`),
+  CONSTRAINT `speedtest_ibfk_1` FOREIGN KEY (`equipamento`) REFERENCES `equipamento` (`ID_EQUIP`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
