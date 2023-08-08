@@ -25,7 +25,7 @@ O projeto Xperf surgiu da necessidade de simplificar e agilizar a avaliação de
 
 1. Clone este repositório para a sua máquina local:
 
-git clone https://github.com/SEU_USUARIO/Xperf.git
+git clone https://github.com/thiagof2755/Xperf.git
 
 
 2. Instale as dependências do projeto:
