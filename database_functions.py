@@ -1,6 +1,5 @@
 import mysql.connector
-from datetime import datetime
-import PySimpleGUI as sg
+from mysql.connector import Error
 
 class EquipmentInfo:
     def __init__(self, host, user, password, database):
@@ -8,46 +7,36 @@ class EquipmentInfo:
         self.user = user
         self.password = password
         self.database = database
-        self.window = None
 
-    def insert_data_to_db(self, equip_info, ping_results, speed_results):
-        modelo, marca, mac = equip_info
-
+    def insert_data_to_db(self, equipment_info, ping_results):
         try:
-            db_connection = mysql.connector.connect(
+            # Conectar ao banco de dados
+            connection = mysql.connector.connect(
                 host=self.host,
                 user=self.user,
                 password=self.password,
                 database=self.database
             )
 
-            cursor = db_connection.cursor()
+            # Inserir dados na tabela 'equipamento'
+            cursor = connection.cursor()
+            equipamento_query = "INSERT INTO equipamento (marca, modelo, mac) VALUES (%s, %s, %s)"
+            cursor.execute(equipamento_query, equipment_info)
+            equipamento_id = cursor.lastrowid
 
-            insert_equipment_query = "INSERT INTO equipamento (marca, modelo, mac) VALUES (%s, %s, %s)"
-            equipment_values = (marca, modelo, mac)
-            cursor.execute(insert_equipment_query, equipment_values)
+            # Inserir dados na tabela 'ping'
+            ping_query = "INSERT INTO ping (equipamento, ms1, ms2, ms3, data_hora_ping) VALUES (%s, %s, %s, %s, %s)"
+            for ping_result in ping_results:
+                cursor.execute(ping_query, (equipamento_id, ping_result[0], ping_result[1], ping_result[2], ping_result[3]))
 
-            equip_id = cursor.lastrowid
+            # Confirmar a transação
+            connection.commit()
+            print("Dados inseridos com sucesso!")
 
-            insert_ping_query = "INSERT INTO ping (equipamento, ms1, ms2, ms3, data_hora_ping) VALUES (%s, %s, %s, %s, %s)"
-            ping_values = [(equip_id, ms1, ms2, ms3, data_hora_ping) for ms1, ms2, ms3, data_hora_ping in ping_results]
-            cursor.executemany(insert_ping_query, ping_values)
-
-            insert_speed_query = "INSERT INTO speedtest (equipamento, download_speed, upload_speed, data_hora_speedtest) VALUES (%s, %s, %s, %s)"
-            speed_values = [(equip_id, download_speed, upload_speed, data_hora_speedtest) for download_speed, upload_speed, data_hora_speedtest in speed_results]
-            cursor.executemany(insert_speed_query, speed_values)
-
-            db_connection.commit()
-
-            print("\nDados inseridos no banco de dados com sucesso!")
-
-        except mysql.connector.Error as error:
-            print(f"Erro ao conectar ao banco de dados: {error}")
+        except Error as e:
+            print("Erro ao inserir dados no banco de dados:", e)
 
         finally:
-            if cursor:
+            if connection.is_connected():
                 cursor.close()
-            if db_connection:
-                db_connection.close()
-
-
+                connection.close()
