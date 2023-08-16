@@ -63,7 +63,8 @@ if __name__ == "__main__":
     # Adicione os resultados dos testes de velocidade à lista speed_results
     for result in speed_test_model.get_test_results():
         speed_results.append(result)
-    Banco.insert_data_to_db(equipment_info, ping_results)
+
+    Banco.insert_data_to_db(equipment_info, ping_results, speed_results["Velocidade de Download"], speed_results["Velocidade de Upload"], speed_results["Hora"])
     
     print(modelo) 
     print(marca_selecionada)

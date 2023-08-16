@@ -8,7 +8,7 @@ class EquipmentInfo:
         self.password = password
         self.database = database
 
-    def insert_data_to_db(self, equipment_info, ping_results):
+    def insert_data_to_db(self, equipment_info, ping_results, download_speed, upload_speed, speed_time):
         try:
             # Conectar ao banco de dados
             connection = mysql.connector.connect(
@@ -28,6 +28,10 @@ class EquipmentInfo:
             ping_query = "INSERT INTO ping (equipamento, ms1, ms2, ms3, data_hora_ping) VALUES (%s, %s, %s, %s, %s)"
             for ping_result in ping_results:
                 cursor.execute(ping_query, (equipamento_id, ping_result[0], ping_result[1], ping_result[2], ping_result[3]))
+
+            # Inserir dados na tabela 'speedtest'
+            speedtest_query = "INSERT INTO speedtest (equipamento, data_hora_speedtest, download_speed, upload_speed) VALUES (%s, %s, %s, %s)"
+            cursor.execute(speedtest_query, (equipamento_id, speed_time, download_speed, upload_speed))
 
             # Confirmar a transação
             connection.commit()
