@@ -13,6 +13,10 @@ class PingModel:
         self.ping_count3 = 0  # Progresso da Thread 3
 
     def ping_test1(self, destino1, num_pings, atraso, progress_callback):
+        """
+        Executa o teste de ping no destino1, num_pings vezes, com um atraso entre cada ping.
+        Atualiza os resultados e o progresso da Thread 1.
+        """
         for _ in range(num_pings):
             tempo_resposta = ping3.ping(destino1)
             tempo_atual = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
@@ -25,6 +29,10 @@ class PingModel:
             time.sleep(atraso)
 
     def ping_test2(self, destino2, num_pings, atraso, progress_callback):
+        """
+        Executa o teste de ping no destino2, num_pings vezes, com um atraso entre cada ping.
+        Atualiza os resultados e o progresso da Thread 2.
+        """
         for _ in range(num_pings):
             tempo_resposta = ping3.ping(destino2)
             if tempo_resposta is False or tempo_resposta >= 500:
@@ -35,6 +43,10 @@ class PingModel:
             time.sleep(atraso)
 
     def ping_test3(self, destino3, num_pings, atraso, progress_callback):
+        """
+        Executa o teste de ping no destino3, num_pings vezes, com um atraso entre cada ping.
+        Atualiza os resultados e o progresso da Thread 3.
+        """
         for _ in range(num_pings):
             tempo_resposta = ping3.ping(destino3)
             if tempo_resposta is False or tempo_resposta >= 500:
