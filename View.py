@@ -86,7 +86,7 @@ class View:
                     resultados_tempo1, resultados1, resultados2, resultados3 = controller.run_ping()
 
                     
-
+                    
                     return (resultados_tempo1,resultados1,resultados2,resultados3)
                 
                 else:

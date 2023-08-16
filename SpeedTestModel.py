@@ -10,10 +10,13 @@ class SpeedTestModel:
         self.download_speeds = []
         self.upload_speeds = []
 
-    def run_speed_tests(self):
+    def run_speed_tests(self, stop_event):
         st = speedtest.Speedtest()
-        
+
         for i in range(self.repetitions):
+            if stop_event.is_set():
+                break  # Interrompe o loop caso o evento seja sinalizado
+
             current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             download_speed = st.download() / 10**6  # Convert to Mbps
             upload_speed = st.upload() / 10**6  # Convert to Mbps
@@ -27,7 +30,9 @@ class SpeedTestModel:
 
     def get_test_results(self):
         results = []
-        for i in range(self.repetitions):
+        num_results = len(self.test_times)  # Obter o número de resultados válidos
+
+        for i in range(num_results):
             result = {
                 "Hora": self.test_times[i],
                 "Velocidade de Download": int(self.download_speeds[i]),

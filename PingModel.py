@@ -23,7 +23,7 @@ class PingModel:
             if tempo_resposta is False or tempo_resposta >= 500:
                 tempo_resposta = -0.001
             self.resultados_tempo1.append(tempo_atual)
-            self.resultados1.append(int(tempo_resposta * 1000))
+            self.resultados1.append(float(tempo_resposta * 1000))
             self.ping_count1 += 1  # Atualizar o progresso da Thread 1
             progress_callback(1, self.ping_count1)  # Atualizar progresso na GUI
             time.sleep(atraso)
@@ -37,7 +37,7 @@ class PingModel:
             tempo_resposta = ping3.ping(destino2)
             if tempo_resposta is False or tempo_resposta >= 500:
                 tempo_resposta = -0.001
-            self.resultados2.append(int(tempo_resposta * 1000))
+            self.resultados2.append(float(tempo_resposta * 1000))
             self.ping_count2 += 1  # Atualizar o progresso da Thread 2
             progress_callback(2, self.ping_count2)  # Atualizar progresso na GUI
             time.sleep(atraso)
@@ -51,7 +51,7 @@ class PingModel:
             tempo_resposta = ping3.ping(destino3)
             if tempo_resposta is False or tempo_resposta >= 500:
                 tempo_resposta = -0.001
-            self.resultados3.append(int(tempo_resposta * 1000))
+            self.resultados3.append(float(tempo_resposta * 1000))
             self.ping_count3 += 1  # Atualizar o progresso da Thread 3
             progress_callback(3, self.ping_count3)  # Atualizar progresso na GUI
             time.sleep(atraso)
