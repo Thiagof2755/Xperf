@@ -56,9 +56,12 @@ git clone https://github.com/thiagof2755/Xperf.git
 - `View.py`: Interface de usuário utilizando PySimpleGUI.
 - Outros arquivos conforme necessário.
 
-## Dashboard
 
-Para visualizar os dados coletados pelo Xperf, você pode utilizar o Grafana. Um arquivo de configuração `xperf_dashboard.json` na pasta `dashboard` é fornecido para criar uma dashboard pré-configurada com os resultados dos testes de ping e velocidade.
+## Visualização da Dashboard
+
+Para visualizar os dados coletados pelo Xperf, você pode utilizar o Grafana, uma ferramenta poderosa para criação de dashboards e visualização de dados. Na pasta `dashboard`, você encontrará um arquivo de configuração `xperf_dashboard.json`. Importe esse arquivo no Grafana para criar uma dashboard pré-configurada com os resultados dos testes de ping e velocidade.
+
+![Exemplo de Dashboard Xperf](dashboard.png)
 
 ## Contribuição
 
