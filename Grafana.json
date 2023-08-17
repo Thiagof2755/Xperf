@@ -56,7 +56,7 @@
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1691520837883,
+  "iteration": 1691755193771,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -76,7 +76,7 @@
             "axisPlacement": "auto",
             "barAlignment": 0,
             "drawStyle": "line",
-            "fillOpacity": 100,
+            "fillOpacity": 0,
             "gradientMode": "none",
             "hideFrom": {
               "legend": false,
@@ -84,41 +84,81 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "never",
             "spanNulls": false,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "line"
+              "mode": "area"
             }
           },
           "decimals": 0,
           "mappings": [],
-          "max": 100,
           "noValue": "-1",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "transparent",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 10
+                "value": 40
               }
             ]
           },
           "unit": "ms"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Percas"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "custom.thresholdsStyle",
+                "value": {
+                  "mode": "off"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 0
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 100
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -126,16 +166,11 @@
         "x": 0,
         "y": 0
       },
-      "id": 2,
+      "id": 9,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max",
-            "mean"
-          ],
-          "displayMode": "table",
+          "calcs": [],
+          "displayMode": "list",
           "placement": "bottom"
         },
         "tooltip": {
@@ -154,7 +189,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  UNIX_TIMESTAMP(data_hora_ping) as time_sec,\n  ms1 AS '192.168.18.1',\n  data_hora_ping as metric\nFROM ping\nWHERE $__timeFilter(data_hora_ping) AND equipamento = $equipamentos\nORDER BY data_hora_ping ASC\n",
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(p1.data_hora_ping) AS 'time_sec',\n  MAX(p1.ms1) AS 'MAX', \n  MIN(p1.ms1) AS 'MIN', \n  AVG(p1.ms1) AS 'MED',\n  ( SELECT COUNT(p2.ms1)\n    FROM ping as p2\n    WHERE DATE_FORMAT(p1.data_hora_ping, '%d/%m/%Y %H:%i') = DATE_FORMAT(p2.data_hora_ping, '%d/%m/%Y %H:%i')\n      AND p2.ms1 < 0\n  ) AS 'Percas'\nFROM ping AS p1\nWHERE $__timeFilter(p1.data_hora_ping) AND p1.equipamento = $equipamentos AND p1.ms1 >= 0\nGROUP BY DATE_FORMAT(p1.data_hora_ping, '%d/%m/%Y %H:%i')\nORDER BY p1.data_hora_ping;\n",
           "refId": "A",
           "select": [
             [
@@ -187,7 +222,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "palette-classic",
+            "seriesBy": "last"
           },
           "custom": {
             "axisLabel": "",
@@ -202,39 +238,81 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "never",
             "spanNulls": false,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "line"
+              "mode": "area"
             }
           },
+          "decimals": 0,
           "mappings": [],
-          "max": 100,
+          "noValue": "-1",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "transparent",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 50
+                "value": 40
               }
             ]
           },
           "unit": "ms"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Percas"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "custom.thresholdsStyle",
+                "value": {
+                  "mode": "off"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 0
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 100
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -242,16 +320,11 @@
         "x": 12,
         "y": 0
       },
-      "id": 3,
+      "id": 8,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max",
-            "mean"
-          ],
-          "displayMode": "table",
+          "calcs": [],
+          "displayMode": "list",
           "placement": "bottom"
         },
         "tooltip": {
@@ -270,7 +343,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  UNIX_TIMESTAMP(data_hora_ping) as time_sec,\n  ms2,\n  data_hora_ping as metric\nFROM ping\nWHERE $__timeFilter(data_hora_ping) AND equipamento = $equipamentos\nORDER BY data_hora_ping ASC\n",
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(p1.data_hora_ping) AS 'time_sec',\n  MAX(p1.ms2) AS 'MAX', \n  MIN(p1.ms2) AS 'MIN', \n  AVG(p1.ms2) AS 'MED',\n  ( SELECT COUNT(p2.ms2)\n    FROM ping as p2\n    WHERE DATE_FORMAT(p1.data_hora_ping, '%d/%m/%Y %H:%i') = DATE_FORMAT(p2.data_hora_ping, '%d/%m/%Y %H:%i')\n      AND p2.ms2 < 0\n  ) AS 'Percas'\nFROM ping AS p1\nWHERE $__timeFilter(p1.data_hora_ping) AND p1.equipamento = $equipamentos AND p1.ms2 >= 0\nGROUP BY DATE_FORMAT(p1.data_hora_ping, '%d/%m/%Y %H:%i')\nORDER BY p1.data_hora_ping;\n",
           "refId": "A",
           "select": [
             [
@@ -292,7 +365,7 @@
           ]
         }
       ],
-      "title": "Teste Destino 2",
+      "title": "Teste Destino 170.245.4.255",
       "type": "timeseries"
     },
     {
@@ -303,7 +376,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "mode": "palette-classic",
+            "seriesBy": "last"
           },
           "custom": {
             "axisLabel": "",
@@ -318,39 +392,81 @@
               "viz": false
             },
             "lineInterpolation": "smooth",
+            "lineStyle": {
+              "fill": "solid"
+            },
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "never",
             "spanNulls": false,
             "stacking": {
               "group": "A",
               "mode": "none"
             },
             "thresholdsStyle": {
-              "mode": "line"
+              "mode": "area"
             }
           },
+          "decimals": 0,
           "mappings": [],
-          "max": 100,
+          "noValue": "-1",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
-                "color": "green",
+                "color": "transparent",
                 "value": null
               },
               {
                 "color": "red",
-                "value": 50
+                "value": 40
               }
             ]
           },
           "unit": "ms"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Percas"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "none"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-red",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "bars"
+              },
+              {
+                "id": "custom.thresholdsStyle",
+                "value": {
+                  "mode": "off"
+                }
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 100
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 0
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -358,16 +474,11 @@
         "x": 0,
         "y": 8
       },
-      "id": 4,
+      "id": 7,
       "options": {
         "legend": {
-          "calcs": [
-            "lastNotNull",
-            "min",
-            "max",
-            "mean"
-          ],
-          "displayMode": "table",
+          "calcs": [],
+          "displayMode": "list",
           "placement": "bottom"
         },
         "tooltip": {
@@ -386,7 +497,7 @@
           "group": [],
           "metricColumn": "none",
           "rawQuery": true,
-          "rawSql": "SELECT\n  UNIX_TIMESTAMP(data_hora_ping) as time_sec,\n  ms3,\n  data_hora_ping as metric\nFROM ping\nWHERE $__timeFilter(data_hora_ping) AND equipamento = $equipamentos\nORDER BY data_hora_ping ASC\n",
+          "rawSql": "SELECT\n  UNIX_TIMESTAMP(p1.data_hora_ping) AS 'time_sec',\n  MAX(p1.ms3) AS 'MAX', \n  MIN(p1.ms3) AS 'MIN', \n  AVG(p1.ms3) AS 'MED',\n  ( SELECT COUNT(p2.ms3)\n    FROM ping as p2\n    WHERE DATE_FORMAT(p1.data_hora_ping, '%d/%m/%Y %H:%i') = DATE_FORMAT(p2.data_hora_ping, '%d/%m/%Y %H:%i')\n      AND p2.ms3 < 0\n  ) AS 'Percas'\nFROM ping AS p1\nWHERE $__timeFilter(p1.data_hora_ping) AND p1.equipamento = $equipamentos AND p1.ms3 >= 0\nGROUP BY DATE_FORMAT(p1.data_hora_ping, '%d/%m/%Y %H:%i')\nORDER BY p1.data_hora_ping;\n",
           "refId": "A",
           "select": [
             [
@@ -408,7 +519,7 @@
           ]
         }
       ],
-      "title": "Teste Destino 3",
+      "title": "Teste Destino www.google.com.br",
       "type": "timeseries"
     },
     {
@@ -551,13 +662,13 @@
     ]
   },
   "time": {
-    "from": "now-15m",
-    "to": "now"
+    "from": "2023-08-08T19:38:48.576Z",
+    "to": "2023-08-08T23:58:31.023Z"
   },
   "timepicker": {},
   "timezone": "",
-  "title": "Resultados Testes",
-  "uid": "gyBnljq4z",
-  "version": 13,
+  "title": "Resultados Testes Resumo",
+  "uid": "32Cr_o64k",
+  "version": 11,
   "weekStart": ""
 }
