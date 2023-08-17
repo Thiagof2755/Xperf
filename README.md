@@ -1,18 +1,18 @@
 # Xperf
 
-O Xperf é uma aplicação projetada para coletar e analisar informações de desempenho de redes. Ele permite a realização de testes de ping e testes de velocidade de internet, armazenando os resultados em um banco de dados MySQL. Esses resultados podem ser usados para obter insights sobre a qualidade da conexão e auxiliar na otimização da rede.
+O Xperf é um projeto de aplicação que permite a coleta e análise eficiente de informações de desempenho de redes. Ele foi desenvolvido para realizar testes de ping e testes de velocidade de internet, armazenar os resultados em um banco de dados MySQL e fornecer insights valiosos sobre a qualidade da conexão. Com essa ferramenta, é possível monitorar e avaliar a estabilidade e a velocidade da rede de forma centralizada.
 
-## Características Principais
+## Principais Recursos
 
-- Coleta de informações detalhadas de equipamentos, incluindo marca, modelo e endereço MAC.
+- Coleta detalhada de informações sobre equipamentos, incluindo marca, modelo e endereço MAC.
 - Realização automatizada de testes de ping para destinos específicos.
 - Execução periódica de testes de velocidade de internet (download/upload).
-- Armazenamento organizado dos resultados em um banco de dados MySQL.
-- Visualização dos dados coletados para análise e tomadas de decisões informadas.
+- Armazenamento seguro e organizado dos resultados em um banco de dados MySQL.
+- Análise e visualização intuitiva dos dados coletados para tomadas de decisões informadas.
 
 ## Motivação
 
-O projeto Xperf surgiu com o objetivo de simplificar a avaliação de desempenho de redes e facilitar a detecção de problemas de conectividade. Ele oferece uma solução eficiente para monitorar a estabilidade e a velocidade da rede, beneficiando profissionais de TI, administradores de rede e entusiastas.
+O projeto Xperf surgiu da necessidade de simplificar e agilizar a avaliação de desempenho de redes, permitindo a identificação de possíveis gargalos e problemas de conectividade. Com uma estrutura flexível e adaptável, o Xperf se torna uma ferramenta versátil para profissionais de TI, administradores de rede e entusiastas que desejam otimizar a experiência online.
 
 ## Instalação e Uso
 
@@ -23,9 +23,7 @@ O projeto Xperf surgiu com o objetivo de simplificar a avaliação de desempenho
 
 ### Instalação
 
-1. Clone este repositório para sua máquina local:
-
-
+1. Clone este repositório para a sua máquina local:
 
 git clone https://github.com/thiagof2755/Xperf.git
 
@@ -35,8 +33,8 @@ git clone https://github.com/thiagof2755/Xperf.git
 
 ### Configuração
 
-1. Crie um banco de dados MySQL e configure as credenciais nos arquivos `main.py` e `database_functions.py`.
-2. Utilize o script fornecido no repositório para criar as tabelas necessárias no banco de dados.
+1. Crie um banco de dados MySQL e defina suas credenciais no arquivo `main.py` e `database_functions.py`.
+2. Use o script no repositorio para criar as tabelas necessárias no banco de dados:
 3. Execute o arquivo `main.py` para coletar e armazenar os dados.
 
 ## Uso
@@ -48,21 +46,20 @@ git clone https://github.com/thiagof2755/Xperf.git
 ## Estrutura do Projeto
 
 - `main.py`: Arquivo principal que inicia a coleta de dados.
-- `PingController.py`: Controlador para testes de ping.
-- `SpeedTestController.py`: Controlador para testes de velocidade.
-- `SpeedTestModel.py`: Modelo para testes de velocidade.
-- `EquipmentInfo.py`: Classe para inserção de informações de equipamentos no banco de dados.
-- `database_functions.py`: Funções para interagir com o banco de dados.
-- `View.py`: Interface de usuário utilizando PySimpleGUI.
-- Outros arquivos conforme necessário.
+- `ping_functions.py`: Funções relacionadas à realização de testes de ping.
+- `speed_test_functions.py`: Funções relacionadas à realização de testes de velocidade.
+- `database_functions.py`: Funções relacionadas à interação com o banco de dados.
+- `README.md`: Este arquivo de documentação.
 
-## Dashboard
+## Visualização da Dashboard
 
-Para visualizar os dados coletados pelo Xperf, você pode utilizar o Grafana. Um arquivo de configuração `xperf_dashboard.json` na pasta `dashboard` é fornecido para criar uma dashboard pré-configurada com os resultados dos testes de ping e velocidade.
+Para visualizar os dados coletados pelo Xperf, você pode utilizar o Grafana, uma ferramenta poderosa para criação de dashboards e visualização de dados. Na pasta `dashboard`, você encontrará um arquivo de configuração `xperf_dashboard.json`. Importe esse arquivo no Grafana para criar uma dashboard pré-configurada com os resultados dos testes de ping e velocidade.
+
+![Exemplo de Dashboard Xperf](dashboard.png)
 
 ## Contribuição
 
-Contribuições são bem-vindas! Caso queira adicionar recursos, corrigir problemas ou melhorar a documentação, faça um fork deste repositório, implemente suas melhorias e envie um pull request. Juntos, podemos aprimorar o Xperf e torná-lo ainda mais poderoso.
+Contribuições são bem-vindas! Se você deseja adicionar recursos, corrigir problemas ou melhorar a documentação, fique à vontade para fazer um fork deste repositório, implementar suas melhorias e enviar um pull request. Juntos, podemos aprimorar o Xperf e torná-lo ainda mais poderoso.
 
 ## Licença
 
