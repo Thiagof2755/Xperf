@@ -10,6 +10,9 @@ import speedtest
 stop_speed_test_event = threading.Event()
 
 def run_speed_tests(speed_test_model):
+    """
+    Função que executa os testes de velocidade usando um objeto SpeedTestModel.
+    """
     global speed_test_results
 
     try:
@@ -27,8 +30,8 @@ if __name__ == "__main__":
     password = ''
     database = 'xperf'
 
-    interval = 30
-    repetitions = 4
+    interval = 4000
+    repetitions = 20
 
     # Criar uma instância da classe SpeedTestModel
     speed_test_model = SpeedTestModel(interval, repetitions)
@@ -37,9 +40,13 @@ if __name__ == "__main__":
     speed_test_thread = threading.Thread(target=run_speed_tests, args=(speed_test_model,))
     speed_test_thread.start()
 
-    view = View()  # Criar uma instância da classe View
-    modelo, marca_selecionada, mac = view.input_equipment_info()  # Chamar o método input_equipment_info
+    # Criar uma instância da classe View
+    view = View()
+    
+    # Chamar o método input_equipment_info para obter informações do equipamento
+    modelo, marca_selecionada, mac = view.input_equipment_info()
 
+    # Chamar o método Ping da classe View para obter os resultados do teste de ping
     resultados_tempo1, resultados1, resultados2, resultados3 = view.Ping()
     
     # Sinalizar a interrupção da thread de teste de velocidade após a função view.Ping() terminar
@@ -51,21 +58,31 @@ if __name__ == "__main__":
     # Criar uma instância da classe EquipmentInfo
     Banco = EquipmentInfo(host, user, password, database)
     
+    # Criar uma tupla com as informações do equipamento
     equipment_info = (modelo, marca_selecionada, mac)
     ping_results = []
 
     # Adicione todos os elementos dos arrays resultados1, resultados2 e resultados3 à lista ping_results
     for i in range(len(resultados1)):
         ping_results.append((resultados1[i], resultados2[i], resultados3[i], resultados_tempo1[i]))
-# Lista para armazenar os resultados dos testes de velocidade
+    
+    # Lista para armazenar os resultados dos testes de velocidade
     speed_results = []
 
     # Adicione os resultados dos testes de velocidade à lista speed_results
     for result in speed_test_model.get_test_results():
         speed_results.append(result)
 
-    Banco.insert_data_to_db(equipment_info, ping_results, speed_results["Velocidade de Download"], speed_results["Velocidade de Upload"], speed_results["Hora"])
-    
+    # Inserir resultados de teste de velocidade na tabela 'speedtest'
+    for result in speed_results:
+        download_speed = result["Velocidade de Download"]
+        upload_speed = result["Velocidade de Upload"]
+        speed_time = result["Hora"]
+        
+        # Inserir dados na tabela 'speedtest'
+        Banco.insert_data_to_db(equipment_info, ping_results, download_speed, upload_speed, speed_time)
+
+    # Imprimir informações sobre o equipamento
     print(modelo) 
     print(marca_selecionada)
     print(mac)

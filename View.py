@@ -9,7 +9,12 @@ class View:
 
     
     def input_equipment_info(self):
+        """
+        Exibe uma janela para entrada das informações do equipamento.
 
+        Returns:
+        - Tuple: Uma tupla contendo as informações do equipamento (modelo, marca e MAC).
+        """
         sg.theme('DarkBlue13')
         layout = [
             [sg.Text('Equipamento')],
@@ -40,6 +45,12 @@ class View:
                 return modelo, marca_selecionada, mac
 
     def Ping(self):
+        """
+        Exibe uma janela para entrada dos detalhes do teste de ping.
+
+        Returns:
+        - Tuple: Uma tupla contendo os detalhes do teste de ping (destinos, número de pings e atraso).
+        """
         sg.theme('DarkBlue13')
 
         layout = [
@@ -85,12 +96,9 @@ class View:
                     # Chame o método run_ping do controlador
                     resultados_tempo1, resultados1, resultados2, resultados3 = controller.run_ping()
 
-                    
-                    
                     return (resultados_tempo1,resultados1,resultados2,resultados3)
                 
                 else:
                     sg.popup('Por favor, preencha todos os campos!')
 
             window.close()
-
