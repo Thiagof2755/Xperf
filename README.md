@@ -43,6 +43,16 @@ git clone https://github.com/thiagof2755/Xperf.git
 2. Acompanhe o progresso dos testes exibidos no terminal.
 3. Os resultados serão armazenados no banco de dados e estarão disponíveis para análise posterior.
 
+
+### Versões
+
+O Xperf possui duas versões disponíveis:
+
+- Versão Terminal: Localizada na pasta `Xperf_terminal`, esta versão oferece uma interface de linha de comando para executar os testes de ping e velocidade.
+
+- Versão Interface Gráfica: Localizada na pasta `Xperf_interface`, esta versão oferece uma interface gráfica utilizando a biblioteca PySimpleGUI para interação com o usuário.
+
+
 ## Estrutura do Projeto
 
 - `main.py`: Arquivo principal que inicia a coleta de dados.
@@ -51,14 +61,10 @@ git clone https://github.com/thiagof2755/Xperf.git
 - `database_functions.py`: Funções relacionadas à interação com o banco de dados.
 - `README.md`: Este arquivo de documentação.
 
-<<<<<<< HEAD
-## Visualização da Dashboard
 
-=======
 
 ## Visualização da Dashboard
 
->>>>>>> 143b8bdc69da41dc90857fd89e778fddddcc670d
 Para visualizar os dados coletados pelo Xperf, você pode utilizar o Grafana, uma ferramenta poderosa para criação de dashboards e visualização de dados. Na pasta `dashboard`, você encontrará um arquivo de configuração `xperf_dashboard.json`. Importe esse arquivo no Grafana para criar uma dashboard pré-configurada com os resultados dos testes de ping e velocidade.
 
 ![Exemplo de Dashboard Xperf](dashboard.png)
