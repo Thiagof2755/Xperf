@@ -11,7 +11,6 @@ CREATE TABLE `equipamento` (
   PRIMARY KEY (`ID_EQUIP`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-
 CREATE TABLE `ping` (
   `ID_Ping` int(11) NOT NULL AUTO_INCREMENT,
   `equipamento` int(11) DEFAULT NULL,
